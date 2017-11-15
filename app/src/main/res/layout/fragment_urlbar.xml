@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    tools:context="edu.temple.lab8.URLBar"
+    android:orientation="horizontal">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <EditText
+        android:id="@+id/etxtURL"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:layout_weight="4"
+        android:inputType="textPersonName"
+        android:text="Enter Url" />
+
+    <Button
+        android:id="@+id/btnGo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="GO" />
+</LinearLayout>
