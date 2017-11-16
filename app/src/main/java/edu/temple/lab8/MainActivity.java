@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static java.sql.Types.NULL;
 
 
 public class MainActivity extends FragmentActivity implements URLBar.mActivityWebView{
@@ -30,8 +31,8 @@ public class MainActivity extends FragmentActivity implements URLBar.mActivityWe
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        URLBar urlBar = URLBar.newInstance("empty");
-        getFragmentManager().beginTransaction().add(R.id.fragmentURL, urlBar).commit();
+
+        String URL = getIntent().getData().toString();
 
         pager=(ViewPager)findViewById(R.id.fragmentWebViewPager);
 
@@ -82,6 +83,19 @@ public class MainActivity extends FragmentActivity implements URLBar.mActivityWe
         //Let the pager know which adapter it is supposed to use
         pager.setAdapter(adapter);
 
+        if(URL.equals(NULL)) {
+            URLBar urlBar = URLBar.newInstance("empty");
+            getFragmentManager().beginTransaction().add(R.id.fragmentURL, urlBar).commit();
+        }else{
+            list.add(currentIndex, URL);
+            pager.getAdapter().notifyDataSetChanged();
+            URLBar urlBar = URLBar.newInstance(URL);
+            getFragmentManager().beginTransaction().add(R.id.fragmentURL, urlBar).commit();
+            webSiteFrag wSiteFrag = webSiteFrag.newInstance(URL);
+            pager.setCurrentItem(currentIndex);
+        }
+
+
 
         final Button btnBack = findViewById(R.id.btn_Back);
         final Button btnNew = findViewById(R.id.btn_New);
@@ -131,7 +145,7 @@ public class MainActivity extends FragmentActivity implements URLBar.mActivityWe
         currentIndex = list.size();
         list.add(currentIndex, URL);
         pager.getAdapter().notifyDataSetChanged();
-        Toast.makeText(this,"CurrentIndex = "+Integer.toString(currentIndex),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"CurrentIndex = "+Integer.toString(currentIndex),Toast.LENGTH_LONG).show();
         pager.setCurrentItem(currentIndex);
 
     }
